@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    environment {
+    KUBECONFIG = 'C:\\ProgramData\\Jenkins\\.kubeconfig'
+}
     environment {
         IMAGE_NAME = "abc-technologies:v1"
     }
