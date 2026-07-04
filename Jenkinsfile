@@ -35,13 +35,36 @@ pipeline {
         }
     }
 
-    post {
-        success {
-            echo 'Deployment Successful!'
-        }
+   post {
 
-        failure {
-            echo 'Deployment Failed!'
-        }
+    success {
+        echo 'Deployment Successful!'
+
+        powershell '''
+$client = New-Object System.Net.Sockets.TcpClient("host.docker.internal",2003)
+$stream = $client.GetStream()
+$writer = New-Object System.IO.StreamWriter($stream)
+$timestamp=[int][double]::Parse((Get-Date -UFormat %s))
+$writer.WriteLine("jenkins.build.success 1 $timestamp")
+$writer.Flush()
+$writer.Close()
+$client.Close()
+'''
     }
+
+    failure {
+        echo 'Deployment Failed!'
+
+        powershell '''
+$client = New-Object System.Net.Sockets.TcpClient("host.docker.internal",2003)
+$stream = $client.GetStream()
+$writer = New-Object System.IO.StreamWriter($stream)
+$timestamp=[int][double]::Parse((Get-Date -UFormat %s))
+$writer.WriteLine("jenkins.build.failure 1 $timestamp")
+$writer.Flush()
+$writer.Close()
+$client.Close()
+'''
+    }
+}
 }
