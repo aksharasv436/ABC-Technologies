@@ -33,11 +33,7 @@ pipeline {
                 bat 'kubectl get services'
             }
         }
-        stage('Test Failure') {
-    steps {
-        error 'Intentional failure for testing'
-    }
-}
+    
     }
 
    post {
