@@ -67,4 +67,9 @@ $client.Close()
 '''
     }
 }
+stage('Test Failure') {
+    steps {
+        error 'Intentional failure for testing'
+    }
+}
 }
