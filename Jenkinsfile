@@ -15,9 +15,9 @@ pipeline {
     agent any
 
     environment {
-        KUBECONFIG = 'C:\\ProgramData\\Jenkins\\.kubeconfig'
-        IMAGE_NAME = 'abc-technologies:v1'
-    }
+    KUBECONFIG = 'C:\\Users\\Akshara\\.kube\\config'
+    IMAGE_NAME = 'abc-technologies:v1'
+}
 
     stages {
 
